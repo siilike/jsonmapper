@@ -653,6 +653,12 @@ class JsonMapper
             if (PHP_VERSION_ID >= 80100
                 && is_subclass_of($class, \UnitEnum::class)
             ) {
+                throw new JsonMapper_Exception(
+                    'Only BackedEnums are supported'
+                );
+            } else if (PHP_VERSION_ID >= 80100
+                && is_subclass_of($class, \BackedEnum::class)
+            ) {
                 return ($class)::from($jvalue);
             } else {
                 return new $class($jvalue);
